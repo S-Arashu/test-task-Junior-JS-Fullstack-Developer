@@ -29,32 +29,47 @@ const FormMessagePage = () => {
     }
   };
 
+  console.log(errors.name);
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <input
+        className="form-fields"
         {...register("name", { required: true, minLength: 2 })}
         placeholder="Имя"
       />
-      {errors.name && <span>Пожалуйста, введите как минимум два символа</span>}
+      {errors.name && (
+        <span className="form__error">
+          Пожалуйста, введите как минимум два символа
+        </span>
+      )}
 
       <input
+        className="form-fields"
         {...register("phone", {
           required: true,
-          pattern: /^\\+375[0-9]{9}$|^80[0-9]{9}$/,
+          pattern: /^\+375[0-9]{9}$|^80[0-9]{9}$/,
         })}
         placeholder="Телефон"
       />
-      {errors.name && (
-        <span>Пожалуйста, укажите телефон в формате +375... или 80...</span>
+      {errors.phone && (
+        <span className="form__error">
+          Пожалуйста, укажите телефон в формате +375... или 80...
+        </span>
       )}
 
       <textarea
+        className="form-fields"
         {...register("message", { required: true, minLength: 2 })}
         placeholder="Сообщение"
       />
-      {errors.name && <span>Пожалуйста, введите как минимум два символа</span>}
+      {errors.message && (
+        <span className="form__error">
+          Пожалуйста, введите как минимум два символа
+        </span>
+      )}
 
-      <button type="submit" disabled={loading}>
+      <button className="form__button" type="submit" disabled={loading}>
         {loading ? "Отправляем..." : "Отправить"}
       </button>
     </form>
